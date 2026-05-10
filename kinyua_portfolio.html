@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kinyua Brian — Copywriter</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f0eb;
+    --gold: #c9a84c;
+    --gold-light: #e8c96d;
+    --muted: #8a8070;
+    --card-bg: #141414;
+    --border: #2a2a2a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 24px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(201,168,76,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 14vw, 80px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.4s;
+  }
+
+  .hero-name span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    margin-top: 24px;
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 320px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.6s;
+  }
+
+  .hero-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.8s;
+  }
+
+  .pill {
+    padding: 6px 14px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .pill.active {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* SECTION */
+  .section {
+    padding: 60px 24px;
+    position: relative;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* WORK CARDS */
+  .work-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.4s ease, border-color 0.3s ease;
+  }
+
+  .work-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .work-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  .work-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .card-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--white);
+  }
+
+  .card-meta {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .card-divider {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 20px;
+  }
+
+  .caption-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #c8c0b4;
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+  }
+
+  .caption-text strong {
+    font-style: normal;
+    color: var(--white);
+    font-weight: 700;
+  }
+
+  .caption-text .cta {
+    font-style: normal;
+    color: var(--gold);
+    font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+  }
+
+  .caption-text .hashtags {
+    font-style: normal;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    display: block;
+    margin-top: 12px;
+  }
+
+  .framework-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    padding: 4px 10px;
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 6px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* ABOUT */
+  .about-block {
+    border-left: 2px solid var(--gold);
+    padding-left: 20px;
+    margin-bottom: 32px;
+  }
+
+  .about-block p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #c8c0b4;
+  }
+
+  .about-block p + p {
+    margin-top: 14px;
+  }
+
+  /* NICHE GRID */
+  .niche-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .niche-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .niche-item .icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .niche-item span {
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    padding: 60px 24px 80px;
+    text-align: center;
+    position: relative;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .cta-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .cta-headline em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .cta-sub {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+  }
+
+  .cta-btn:hover {
+    background: var(--gold-light);
+    transform: scale(1.03);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 24px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="tag">Copywriter · East Africa</span>
+  <h1 class="hero-name">Kinyua<br/><span>Brian.</span></h1>
+  <p class="hero-sub">Words that stop the scroll, spark the feeling, and move people to act.</p>
+  <div class="hero-pills">
+    <span class="pill active">Fashion</span>
+    <span class="pill active">Forex</span>
+    <span class="pill">East African Market</span>
+    <span class="pill">Instagram Copy</span>
+  </div>
+</section>
+
+<!-- WORK SAMPLES -->
+<section class="section">
+  <div class="section-label">Work Samples</div>
+
+  <!-- Sample 1 -->
+  <div class="work-card">
+    <div class="card-brand">Sura Afrika</div>
+    <div class="card-meta">African Print · Instagram Caption</div>
+    <div class="card-divider"></div>
+    <div class="caption-text">
+      They'll ask where you got it.<br/>
+      Just smile. 😏<br/><br/>
+      Your roots are not a trend — they're a <strong>statement.</strong><br/><br/>
+      <em>Sura Afrika</em> — for the woman who wears her culture like a crown. Bold prints. Real craftsmanship. Zero apologies. 👑🌍<br/><br/>
+      <span class="cta">Own yours 👉 Link in bio.</span>
+      <span class="hashtags">#SuraAfrika #AnkaraFashion #WearAfrica #NairobiFashion</span>
+    </div>
+    <div class="framework-tag">✦ Hook + Emotion + CTA</div>
+  </div>
+
+  <!-- Sample 2 -->
+  <div class="work-card">
+    <div class="card-brand">Zuri Collective</div>
+    <div class="card-meta">Women's Boutique · Instagram Caption</div>
+    <div class="card-divider"></div>
+    <div class="caption-text">
+      The compliments didn't stop. Not once. 😭💛<br/><br/>
+      <em>"I wore Zuri to my birthday dinner and spent the whole night telling people where I got my dress."</em><br/><br/>
+      That's not a flex. That's just a <strong>Zuri Saturday.</strong><br/><br/>
+      When your outfit does the talking, you just smile and sip. 🥂<br/><br/>
+      <span class="cta">Be that girl 👉 Link in bio.</span>
+      <span class="hashtags">#ZuriCollective #NairobiFashion #WearZuri</span>
+    </div>
+    <div class="framework-tag">✦ Social Proof + Lifestyle</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" style="padding-top:0">
+  <div class="section-label">About</div>
+  <div class="about-block">
+    <p>I'm a Nairobi-based copywriter specialising in fashion and finance brands across East Africa. I write copy that doesn't just look good — it converts.</p>
+    <p>My edge? I understand the East African customer deeply — the culture, the aspirations, and what actually makes them tap that link in bio.</p>
+  </div>
+
+  <div class="niche-grid">
+    <div class="niche-item">
+      <span class="icon">👗</span>
+      <span>Fashion Brands</span>
+    </div>
+    <div class="niche-item">
+      <span class="icon">📈</span>
+      <span>Forex & Finance</span>
+    </div>
+    <div class="niche-item">
+      <span class="icon">📱</span>
+      <span>Instagram Copy</span>
+    </div>
+    <div class="niche-item">
+      <span class="icon">🌍</span>
+      <span>East Africa</span>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="cta-headline">Ready to make your<br/>brand <em>unforgettable?</em></h2>
+  <p class="cta-sub">Let's write words your customers can't scroll past.</p>
+  <a href="https://wa.me/254XXXXXXXXX" class="cta-btn">Work With Me</a>
+</section>
+
+<footer>
+  © 2025 Kinyua Brian · Nairobi, Kenya
+</footer>
+
+<script>
+  // Scroll reveal for cards
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.work-card').forEach(card => observer.observe(card));
+</script>
+</body>
+</html>
